@@ -20,5 +20,10 @@ const PeliculaSchema = Schema({
 
 })
 
+PeliculaSchema.methods.toJSON = function(){
+    const {__v, ...data} = this.toObject();
+    return data;
+}
+
 
 module.exports = model('Pelicula', PeliculaSchema);

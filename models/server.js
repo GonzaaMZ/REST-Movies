@@ -10,8 +10,10 @@ class Server{
         this.port = process.env.PORT;
 
         //Paths
-        this.moviesPath = '/api/movies';    
-        //TODO Conexión a DB
+        this.moviesPath =   '/api/movies';  
+        this.generosPath =  '/api/generos';
+
+        //Conexión a DB
         this.conectarDB();
         //Middlewares
         this.middlewares();
@@ -19,7 +21,7 @@ class Server{
         this.routes();
     }
 
-    //TODO Funcion para la conexión a la base de datos
+    //Funcion para la conexión a la base de datos
     async conectarDB (){
         await dbConnection();
     }
@@ -36,11 +38,13 @@ class Server{
         this.app.use(express.static('public'));
 
         //TODO Middlewares DE  FILEUPLOAD PARA CARATULAS
+        
 
     }
 
     routes(){
         this.app.use(this.moviesPath, require('../routes/movies.route'));
+        this.app.use(this.generosPath, require('../routes/generos.route'));
 
 
     }

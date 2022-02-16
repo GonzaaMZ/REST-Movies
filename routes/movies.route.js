@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { crearPelicula } = require('../controllers/movies.controller');
+const { crearPelicula, obtenerPeliculas, obtenerPeliculabyID,actualizarPelicula, borrarPelicula } = require('../controllers/movies.controller');
 
 
 
@@ -12,24 +12,18 @@ url/api/movies
 */
 
 //Obtener todas las peliculas listadas
-
-router.get('/', (req, res) => {
-    res.json({
-        msg: 'GET'
-    })
-})
+router.get('/', obtenerPeliculas)
 
 //Obtener peliculas por ID
-
+router.get('/:id', obtenerPeliculabyID)
 
 //Crear peliculas
-
 router.post('/', crearPelicula)
 
-
 //Actualizar peliculas
-
+router.put('/:id', actualizarPelicula)
 
 //Borrar peliculas
+router.delete('/:id', borrarPelicula);
 
 module.exports = router;
