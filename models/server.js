@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 const {dbConnection} = require('../database/config');
 
@@ -10,8 +11,10 @@ class Server{
         this.port = process.env.PORT;
 
         //Paths
-        this.moviesPath =   '/api/movies';  
-        this.generosPath =  '/api/generos';
+        this.buscarPath  =   '/api/buscar';
+        this.generosPath =   '/api/generos';
+        this.moviesPath  =   '/api/movies';  
+        this.uploadPath  =   '/api/upload';
 
         //Conexión a DB
         this.conectarDB();
@@ -38,14 +41,19 @@ class Server{
         this.app.use(express.static('public'));
 
         //TODO Middlewares DE  FILEUPLOAD PARA CARATULAS
-        
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true
+        }));
 
     }
 
     routes(){
-        this.app.use(this.moviesPath, require('../routes/movies.route'));
+        this.app.use(this.buscarPath, require('../routes/busqueda.route'));
         this.app.use(this.generosPath, require('../routes/generos.route'));
-
+        this.app.use(this.moviesPath, require('../routes/movies.route'));
+        this.app.use(this.uploadPath, require('../routes/upload.route'))
 
     }
 

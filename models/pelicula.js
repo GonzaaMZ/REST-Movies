@@ -12,7 +12,7 @@ const PeliculaSchema = Schema({
         required: true
     },
     año: {
-        type: Number
+        type: String
     },
     caratula: {
         type: String
